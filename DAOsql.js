@@ -23,9 +23,19 @@ var getEmployees = function(){
             .catch(error => {
                 reject(error)
             })
-
     })
-
-
 }
-module.exports = { getEmployees }
+
+var getDepartments = function(){
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM dept")
+            .then((data) => {
+                resolve(data)
+            })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+
+module.exports = { getEmployees, getDepartments }

@@ -1,34 +1,34 @@
-<h1> Employees</h1>
+<h1> Departments</h1>
 
 <table border="1">
     <tr>
-        <th>EID</th>
-        <th>ID</th>
+        <th>DID</th>
         <th>Name</th>
-        <th>Salary</th>
-        <th>Update</th>
+        <th>Budget</th>
+        <th>Location</th>
+        <th>Delete</th>
     </tr>
 
     <tr>
 
     </tr>
-    <% for(let emp of employees){%>
+    <% for(let dep of departments){%>
         <tl>
             </tr>
             <td>
-                <%=emp.eid %>
+                <%=dep.did %>
             </td>
             <td>
-                <%=emp.ename %>
+                <%=dep.dname %>
             </td>
             <td>
-                <%=emp.role %>
+                <%=dep.lid %>
             </td>
             <td>
-                <%=emp.salary %>
+                <%=dep.budget %>
             </td>
             <td>
-                <a href="http://localhost:3004/update/<%=emp.eid%>">Update</a>
+                <a href="http://localhost:3004/update/<%=dep.did%>">Update</a>
             </td>
             </tr>
             <% }%>

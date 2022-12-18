@@ -1,0 +1,34 @@
+<h1>Employees(MongoDB)</h1>
+<br /><br />
+<a href="http://localhost:3004/employeesMongoDB/add">Add Employee(MongoDB)</a>
+<table border="1">
+    <tr>
+        <th>EID</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+
+
+    <tr>
+
+
+    </tr>
+    <% for(let monemp of employeesmongo){%>
+        <tl>
+            </tr>
+            <td>
+                <%=monemp._id %>
+            </td>
+            <td>
+                <%=monemp.phone %>
+            </td>
+            <td>
+                <%=monemp.email %>
+            </td>
+            </tr>
+            <% }%>
+
+
+
+</table>
+<a href="http://localhost:3004/">Return Home</a>
