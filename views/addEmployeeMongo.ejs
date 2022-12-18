@@ -1,10 +1,25 @@
 <h1>Add Employee(MongoDB)</h1>
-<form method="POST">
-    <label>EID: </label>
-    <input type="text" name="_id" minlength="4" maxlength="4"><br>
-    <label>Phone: </label>
-    <input type="text" name="phone" minlength="5"><br>
-    <label>Email: </label>
-    <input type="text" name="email" pattern=".+@gmail\.com" required><button type="Add" value="OK">Add</button>
-</form>
-<a href="http://localhost:3004/">Home</a>
+
+<% if (errors !=undefined) { %>
+    <ul>
+        <% errors.forEach((error)=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% (emp)} %>
+
+
+        <form action="/addEmployeeMongo" method="POST">
+            <h2>
+                <%= emp.name %>
+            </h2>
+            <label>EID: </label>
+            <input type="text" name="_id" minlength="4" maxlength="4"><br>
+            <label>Phone: </label>
+            <input type="text" name="phone" minlength="5"><br>
+            <label>Email: </label>
+            <input type="text" name="email" pattern=".+@gmail\.com" required><button type="Add" value="OK">Add</button>
+        </form>
+        <a href="http://localhost:3004/">Home</a>

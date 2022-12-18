@@ -6,6 +6,8 @@ app.set("view engine", "ejs");
 const { ReturnDocument } = require('mongodb');
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
+const { check, validationResult } = require('express-validator');
+
 
 var DAOsql = require("./DAOsql");
 var DAOmongo = require("./DAOmongo");
@@ -96,7 +98,7 @@ app.get("/Departments/deleteDepartments/:did", (req, res) => {
 app.get("/EmployeesMongo", (req, res) => {
     DAOmongo.findAll()
         .then((monemp) => {
-            res.render('employeesmongo', { employeesmongo: monemp })
+            res.render("employeesmongo", { employeesmongo: monemp })
         })
         .catch((error) => {
             if (error.errno == 1146) {
@@ -109,7 +111,7 @@ app.get("/EmployeesMongo", (req, res) => {
 })
 
 app.get("/EmployeesMongo/add", (req, res) => {
-    res.render('addEmployeeMongo', { addEmployeeMongo: e })
+    res.render("addEmployeeMongo", {addEmployeeMongo: e},{errors: undefined} )
 
     console.log(error)
     if (error.errno == 1146) {
@@ -121,15 +123,36 @@ app.get("/EmployeesMongo/add", (req, res) => {
 
 })
 
-app.post("/EmployeesMongo/add", (req, res) => {
+app.post("/EmployeesMongo/add", 
+[
+    check("_id").isLength({ min: 4 })
+        .withMessage("EID must be 4 characters")
+],
+    [
+        check("phone").isLength({ min: 5 })
+            .withMessage("Phone must be >5 characters")
+    ],
+    [
+        check("email").isLength({ min: 1 })
+            .withMessage("Email must be a valid email address.")
+ ], 
+    (req, res) => {
 
-    DAOmongo.addEmployee(req.body)
-        .then((e) => {
-            console.log("Okay")
-            res.render('/')
-        }).catch((error) => {
-            console.log("Not Okay")
-            res.render('error')
-        })
-})
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            res.render("addEmployeeMongo",
+                { errors: errors.errors })
+        } else {
+            DAOmongo.addEmployee(req.body)
+                .then((e) => {
+                    console.log("Okay")
+                    res.render("homePage")
+                }).catch((error) => {
+                    console.log("Not Okay")
+                    res.render("errorMessage")
+                })
+        }
+
+
+    })
 
