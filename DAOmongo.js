@@ -27,7 +27,7 @@ var findAll = function () {
 }
 
 var addEmployee = function (employee) {
-    DAOsql.getUpdate();
+    DAOsql.getEmployeeforUpdate();
     return new Promise((resolve, reject) => {
         coll.insertOne(employee)
             .then((documents) => {
@@ -39,4 +39,4 @@ var addEmployee = function (employee) {
     })
 }
 
-module.exports = { findAll, addEmployee}
+module.exports = { findAll, addEmployee }
