@@ -1,0 +1,41 @@
+<h1> Employees</h1>
+
+
+<table border="1">
+    <tr>
+        <th>EID</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Update</th>
+    </tr>
+
+
+    <tr>
+
+
+    </tr>
+    <% for(let emp of employee){%>
+        <tl>
+            </tr>
+            <td>
+                <%=emp.eid %>
+            </td>
+            <td>
+                <%=emp.ename %>
+            </td>
+            <td>
+                <%=emp.role %>
+            </td>
+            <td>
+                <%=emp.salary %>
+            </td>
+            <td>
+                <a href="http://localhost:3004/update/<%=emp.eid%>">Update</a>
+            </td>
+            </tr>
+            <% }%>
+
+
+
+</table>
