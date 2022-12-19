@@ -1,0 +1,26 @@
+<h1>Edit Employee</h1>
+
+
+<form method="POST">
+    <label>EID</label>
+    <input type="text" name="eid" required value="<%=editEmployee.eid %>" readonly>
+    <br /><br />
+
+    <label>Name</label>
+    <input type="text" name="ename" required value="<%=editEmployee.ename %>" minlength="5">
+    <br /><br />
+
+    <label>Role</label>
+    <input type="text" name="role" required value="<%=editEmployee.role %>">
+    <br /><br />
+
+    <label>Salary</label>
+    <input type="text" name="salary" min="1" max="1000000" required value="<%=editEmployee.salary %>">
+    <br /><br />
+
+    <button type="submit">Update</button>
+</form>
+
+
+<br /><br />
+<a href="http://localhost:3004/">Home</a>

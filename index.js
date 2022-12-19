@@ -36,10 +36,10 @@ app.get("/Employees", (req, res) => {
         })
 })
 
-app.get("/update/:eid", (req, res) => {
+app.get("/edit/:eid", (req, res) => {
     DAOsql.getEmployeeforUpdate(req.params.eid)
-        .then((ue) => {
-            res.render('updateEmployee', { updateEmployee: ue[0] })
+        .then((ee) => {
+            res.render('editEmployee', { editEmployee: ee[0] })
         })
         .catch((error) => {
             if (error.errno == 1146) {
@@ -51,7 +51,7 @@ app.get("/update/:eid", (req, res) => {
         })
 })
 
-app.post("/update/:eid", (req, res) => {
+app.post("/edit/:eid", (req, res) => {
 
     DAOsql.updateEmployee(req.body)
         .then((ue) => {
