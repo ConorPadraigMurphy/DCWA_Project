@@ -52,17 +52,13 @@ app.get("/edit/:eid", (req, res) => {
 })
 
 app.post("/edit/:eid", (req, res) => {
-
     DAOsql.updateEmployee(req.body)
         .then((ue) => {
-            
             console.log("Worked")
-
         }).catch((error) => {
             console.log("Did not work")
-
         })
-        res.redirect("/")
+    res.redirect("/")
 })
 
 
@@ -84,16 +80,15 @@ app.get("/Departments", (req, res) => {
 app.get("/Departments/deleteDepartments/:did", (req, res) => {
     DAOsql.deleteDepartment(req.params.did)
         .then((ed) => {
-            res.render('deleteDepartment')
+            res.redirect("/departments")
         })
         .catch((error) => {
             if (error.errno == 1146) {
                 res.send("Invalid table: " + error.sqlMessage)
             }
             else {
-                res.send("error")
+                res.render("deleteDepartment")
             }
-
         })
 })
 
@@ -135,7 +130,7 @@ app.post("/EmployeesMongo/add",
             .withMessage("Phone must be >5 characters")
     ],
     [
-        check("email").isLength({ min: 1 })
+        check("email").isEmail()
             .withMessage("Email must be a valid email address.")
     ],
     (req, res) => {
@@ -147,10 +142,10 @@ app.post("/EmployeesMongo/add",
         } else {
             DAOmongo.addEmployee(req.body)
                 .then((e) => {
-                    console.log("Okay")
-                    res.render("homePage")
+                    console.log("Worked")
+                    res.redirect("/EmployeesMongo")
                 }).catch((error) => {
-                    console.log("Not Okay")
+                    console.log("Did not work")
                     res.render("errorMessage")
                 })
         }

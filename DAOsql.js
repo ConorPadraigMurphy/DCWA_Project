@@ -69,7 +69,7 @@ var getDepartments = function () {
 
 var deleteDepartment = function (did) {
     return new Promise((resolve, reject) => {
-        pool.query(`delete from emp_dept where did like "${did}";`)
+        pool.query(`DELETE FROM dept WHERE did LIKE "${did}";`)
             .then((data) => {
                 resolve(data)
             })
@@ -84,6 +84,3 @@ module.exports = {
     getEmployees, getDepartments, getEmployeeforUpdate,
     updateEmployee, deleteDepartment
 }
-
-//hoi
-//update not working

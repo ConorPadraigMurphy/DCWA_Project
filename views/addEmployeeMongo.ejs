@@ -8,19 +8,14 @@
             </li>
             <% }) %>
     </ul>
-    <% (user)} %>
+    <% } %>
 
-
-        <form action="/addEmployeeMongo/add" method="POST">
-            <h2>
-                <%= user.name %>
-            </h2>
+        <form action="/EmployeesMongo/add" method="POST">
             <label>EID: </label>
-            <input type="text" name="_id" minlength="4" maxlength="4"><br>
+            <input type="text" name="_id"><br>
             <label>Phone: </label>
-            <input type="text" name="phone" minlength="5"><br>
+            <input type="text" name="phone"><br>
             <label>Email: </label>
-            <input type="text" name="email" pattern=".+@gmail\.com" required><button
-                type="Add" value="OK">Add</button>
+            <input type="text" name="email"><button type="Add" value="OK">Add</button>
         </form>
-        <a href="http://localhost:3004/">Home</a>
+        <a href="/">Home</a>
