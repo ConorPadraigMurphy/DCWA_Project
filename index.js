@@ -6,8 +6,7 @@ app.set("view engine", "ejs");
 const { ReturnDocument } = require('mongodb');
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
-const { check, validationResult } = require('express-validator');
-
+const { check, validationResult, body } = require('express-validator');
 
 var DAOsql = require("./DAOsql");
 var DAOmongo = require("./DAOmongo");
@@ -39,7 +38,7 @@ app.get("/Employees", (req, res) => {
 app.get("/edit/:eid", (req, res) => {
     DAOsql.getEmployeeforUpdate(req.params.eid)
         .then((ee) => {
-            res.render('editEmployee', { editEmployee: ee[0] })
+            res.render('editEmployee', { editEmployee: ee[0], errors: undefined })
         })
         .catch((error) => {
             if (error.errno == 1146) {
@@ -57,20 +56,19 @@ app.post("/edit/:eid",
             .withMessage("Name should be a minimum of 5 characters.")
     ],
     [
-        check("role").contains({ contains: "Manager" })
+        check("role").isIn(["Manager", "Employee", "manager", "employee"])
             .withMessage("Role should be Manager or Employee.")
     ],
     [
-        check("salary").isNumeric({ min: 1 })
+        check("salary").isFloat({ gt: 0 })
             .withMessage("Salary should be > 0.")
     ],
     (req, res) => {
-
+        console.log(res.body)
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-
             res.render("editEmployee",
-                { errors: errors.errors })
+                { errors: errors.errors, editEmployee: req.body })
         } else {
             DAOsql.updateEmployee(req.body)
                 .then((ue) => {
@@ -83,7 +81,6 @@ app.post("/edit/:eid",
 
         }
     })
-
 
 app.get("/Departments", (req, res) => {
     DAOsql.getDepartments()
