@@ -38,8 +38,8 @@ app.get("/Employees", (req, res) => {
 
 app.get("/update/:eid", (req, res) => {
     DAOsql.getEmployeeforUpdate(req.params.eid)
-        .then((uemp) => {
-            res.render('updateEmployee', { updateEmployee: uemp[0] })
+        .then((ue) => {
+            res.render('updateEmployee', { updateEmployee: ue[0] })
         })
         .catch((error) => {
             if (error.errno == 1146) {
@@ -54,13 +54,15 @@ app.get("/update/:eid", (req, res) => {
 app.post("/update/:eid", (req, res) => {
 
     DAOsql.updateEmployee(req.body)
-        .then((e) => {
-            console.log("Okay")
-            res.redirect("/Employees")
+        .then((ue) => {
+            
+            console.log("Worked")
+
         }).catch((error) => {
-            console.log("Not Okay")
+            console.log("Did not work")
 
         })
+        res.redirect("/")
 })
 
 
@@ -111,7 +113,7 @@ app.get("/EmployeesMongo", (req, res) => {
 })
 
 app.get("/EmployeesMongo/add", (req, res) => {
-    res.render("addEmployeeMongo", {addEmployeeMongo: e},{errors: undefined} )
+    res.render("addEmployeeMongo", { addEmployeeMongo: e, errors: undefined })
 
     console.log(error)
     if (error.errno == 1146) {
@@ -123,11 +125,11 @@ app.get("/EmployeesMongo/add", (req, res) => {
 
 })
 
-app.post("/EmployeesMongo/add", 
-[
-    check("_id").isLength({ min: 4 })
-        .withMessage("EID must be 4 characters")
-],
+app.post("/EmployeesMongo/add",
+    [
+        check("_id").isLength({ min: 4 })
+            .withMessage("EID must be 4 characters")
+    ],
     [
         check("phone").isLength({ min: 5 })
             .withMessage("Phone must be >5 characters")
@@ -135,7 +137,7 @@ app.post("/EmployeesMongo/add",
     [
         check("email").isLength({ min: 1 })
             .withMessage("Email must be a valid email address.")
- ], 
+    ],
     (req, res) => {
 
         const errors = validationResult(req)

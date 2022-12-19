@@ -80,5 +80,10 @@ var deleteDepartment = function (did) {
 
 }
 
-module.exports = { getEmployees, getDepartments, getEmployeeforUpdate, 
-    updateEmployee,deleteDepartment  }
+module.exports = {
+    getEmployees, getDepartments, getEmployeeforUpdate,
+    updateEmployee, deleteDepartment
+}
+
+//hoi
+//update not working
