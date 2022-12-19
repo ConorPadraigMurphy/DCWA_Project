@@ -51,15 +51,38 @@ app.get("/edit/:eid", (req, res) => {
         })
 })
 
-app.post("/edit/:eid", (req, res) => {
-    DAOsql.updateEmployee(req.body)
-        .then((ue) => {
-            console.log("Worked")
-        }).catch((error) => {
-            console.log("Did not work")
-        })
-    res.redirect("/")
-})
+app.post("/edit/:eid",
+    [
+        check("ename").isLength({ min: 1 })
+            .withMessage("Name should be a minimum of 5 characters.")
+    ],
+    [
+        check("role").contains({ contains: "Manager" })
+            .withMessage("Role should be Manager or Employee.")
+    ],
+    [
+        check("salary").isNumeric({ min: 1 })
+            .withMessage("Salary should be > 0.")
+    ],
+    (req, res) => {
+
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+
+            res.render("editEmployee",
+                { errors: errors.errors })
+        } else {
+            DAOsql.updateEmployee(req.body)
+                .then((ue) => {
+                    console.log("Worked")
+                }).catch((error) => {
+                    console.log("Did not work")
+                })
+
+            res.redirect("/")
+
+        }
+    })
 
 
 app.get("/Departments", (req, res) => {
